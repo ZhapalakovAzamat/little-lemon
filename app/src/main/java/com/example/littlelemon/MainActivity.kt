@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.littlelemon.ui.theme.LittleLemonTheme
 
@@ -20,7 +21,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LittleLemonTheme {
-                val navController = rememberNavController()
                 MyNavigation()
             }
         }
@@ -29,5 +29,5 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyNavigation(){
-    Navigation(userDataStored = true)
+    val navController = rememberNavController()
 }

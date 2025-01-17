@@ -2,20 +2,23 @@ package com.example.littlelemon
 
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import android.service.autofill.UserData
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun Navigation(userDataStored: Boolean){
+fun Navigation(navController: NavController){
     val navController = rememberNavController()
     NavHost(
-        navController = navController,
-        startDestination =
-        if (userDataStored)Onboarding.route
-        else Home.route)
-    {
+        navController = navController
+        , startDestination =
+        if (UserData == SharedPreferences) { Onboarding.route
+        } else {Home.route}
+    ) {
         composable(Home.route){
             Home()
         }
