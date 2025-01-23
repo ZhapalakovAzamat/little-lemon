@@ -1,6 +1,5 @@
 package com.example.littlelemon
 
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -21,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -33,25 +33,23 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 @Composable
-fun Onboarding(
-    navController: NavHostController
-) {
+fun Onboarding(navController: NavHostController) {
     val context = LocalContext.current
-    var firstName by rememberSaveable {
+    var firstName by remember {
         mutableStateOf(TextFieldValue(""))
     }
-    var lastName by rememberSaveable {
+    var lastName by remember {
         mutableStateOf(TextFieldValue(""))
     }
-    var email by rememberSaveable {
+    var email by remember {
         mutableStateOf(TextFieldValue(""))
     }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -165,22 +163,22 @@ fun Onboarding(
                 .padding(start = 10.dp, end = 10.dp)
         )
         Button(
-            onClick = {
-                if (
-                    firstName.text == ""
-                    && lastName.text == ""
-                    && email.text == ""
-                    ){
-                    Toast.makeText(context
-                        , "Registration successful!"
-                        , Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    Toast.makeText(context
-                        , "Registration unsuccessful. Please enter all data."
-                        , Toast.LENGTH_LONG
-                    ).show()
-                }
+            onClick = { navController.navigate(Home.route)
+//                if (
+//                    firstName.isNotBlank()
+//                    && lastName.text == ""
+//                    && email.text == ""
+//                    ){
+//                    Toast.makeText(context
+//                        , "Registration successful!"
+//                        , Toast.LENGTH_LONG
+//                    ).show()
+//                } else {
+//                    Toast.makeText(context
+//                        , "Registration unsuccessful. Please enter all data."
+//                        , Toast.LENGTH_LONG
+//                    ).show()
+//                }
             }
             , border = BorderStroke(1.dp, Color.Red)
             , shape = RoundedCornerShape(10.dp)
@@ -201,5 +199,5 @@ fun Onboarding(
 //@Preview(showBackground = true)
 //@Composable
 //private fun OnboardingPreview() {
-//    Onboarding(navController)
+//    Onboarding()
 //}

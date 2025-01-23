@@ -1,15 +1,35 @@
 package com.example.littlelemon
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun Profile(){}
+fun Profile(navController: NavHostController){
+    Column(
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Profile",
+            fontSize = 32.sp
+        )
+    }
+}
 
 
 
 @Preview(showSystemUi = true)
 @Composable
 fun ProfileScreen(){
-    Profile()
+    Profile(navController = rememberNavController())
 }
