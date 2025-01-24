@@ -6,8 +6,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 
 @Composable
-fun Navigation(navHostController: NavHostController) {
-    NavHost(navController = navHostController, startDestination = Destinations.Onboarding.route) {
+fun Navigation(navHostController: NavHostController, userData: Boolean) {
+    NavHost(
+        navController = navHostController
+        , startDestination =
+        if (userData) Destinations.Onboarding.route
+        else Destinations.Home.route
+    ) {
         composable(Destinations.Home.route) {
             Home(navHostController)
         }
