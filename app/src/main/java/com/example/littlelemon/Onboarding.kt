@@ -1,5 +1,6 @@
 package com.example.littlelemon
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -35,29 +36,22 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 
 @Composable
-fun Onboarding(navController: NavHostController) {
+fun Onboarding(navController: NavController) {
     val context = LocalContext.current
-    var firstName by remember {
-        mutableStateOf(TextFieldValue(""))
-    }
-    var lastName by remember {
-        mutableStateOf(TextFieldValue(""))
-    }
-    var email by remember {
-        mutableStateOf(TextFieldValue(""))
-    }
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
+        modifier = Modifier.fillMaxWidth()
         , verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(
-                id = R.drawable.logo)
+            painter = painterResource(id = R.drawable.logo)
             , contentDescription = "Logo"
             , modifier = Modifier
                 .height(80.dp)
@@ -70,7 +64,6 @@ fun Onboarding(navController: NavHostController) {
                 .background(Color(0xFF485E57))
                 .padding(0.dp, 48.dp, 0.dp, 48.dp)
                 .fillMaxWidth()
-
         ){
             Text(
                 text = "Let's get to know you"
@@ -80,7 +73,6 @@ fun Onboarding(navController: NavHostController) {
                 , textAlign = TextAlign.Center
                 , modifier = Modifier
                     .fillMaxWidth()
-
             )
         }
         Box(modifier = Modifier
@@ -93,9 +85,7 @@ fun Onboarding(navController: NavHostController) {
                 , textAlign = TextAlign.Start
                 , modifier = Modifier
                     .fillMaxSize()
-                    .padding(
-                        top = 50.dp
-                        , start = 10.dp)
+                    .padding(top = 50.dp, start = 10.dp)
             )
         }
         Text(
@@ -163,22 +153,18 @@ fun Onboarding(navController: NavHostController) {
                 .padding(start = 10.dp, end = 10.dp)
         )
         Button(
-            onClick = { navController.navigate(Home.route)
-//                if (
-//                    firstName.isNotBlank()
-//                    && lastName.text == ""
-//                    && email.text == ""
-//                    ){
-//                    Toast.makeText(context
-//                        , "Registration successful!"
-//                        , Toast.LENGTH_LONG
-//                    ).show()
-//                } else {
-//                    Toast.makeText(context
-//                        , "Registration unsuccessful. Please enter all data."
-//                        , Toast.LENGTH_LONG
-//                    ).show()
-//                }
+            onClick = {
+                if (
+                    firstName.isNotBlank() && lastName.isNotBlank() && email.isNotBlank()
+                    ){
+                    Toast.makeText(context, context.getString(R.string.successful)
+                        , Toast.LENGTH_SHORT
+                    ).show()
+                    navController.navigate(Destinations.Home.route)
+                } else Toast.makeText(
+                    context, context.getString(R.string.unsuccessful)
+                        , Toast.LENGTH_LONG
+                    ).show()
             }
             , border = BorderStroke(1.dp, Color.Red)
             , shape = RoundedCornerShape(10.dp)

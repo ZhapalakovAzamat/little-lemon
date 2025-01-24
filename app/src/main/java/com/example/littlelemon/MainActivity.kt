@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.littlelemon.ui.theme.LittleLemonTheme
 
@@ -16,7 +14,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             LittleLemonTheme {
-                val navController = rememberNavController()
                 MyNavigation()
             }
         }
@@ -25,6 +22,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyNavigation() {
-    Navigation(navController = rememberNavController())
+    val navHostController = rememberNavController()
+    Navigation(navHostController = navHostController)
 }
 

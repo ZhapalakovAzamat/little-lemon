@@ -4,26 +4,19 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun Navigation(navController: NavHostController) {
-    NavHost(
-        navController = rememberNavController()
-        , startDestination = Onboarding.route)
-    {
-        composable(Home.route) {
-            Home(navController)
+fun Navigation(navHostController: NavHostController) {
+    NavHost(navController = navHostController, startDestination = Destinations.Onboarding.route) {
+        composable(Destinations.Home.route) {
+            Home(navHostController)
         }
-        composable(Profile.route) {
-            Profile(navController)
+        composable(Destinations.Profile.route) {
+            Profile(navHostController)
         }
-        composable(Onboarding.route) {
-            Onboarding(navController)
+        composable(Destinations.Onboarding.route) {
+            Onboarding(navHostController)
         }
     }
 }
 
-//private fun UserData(): Boolean {
-//    return false
-//}

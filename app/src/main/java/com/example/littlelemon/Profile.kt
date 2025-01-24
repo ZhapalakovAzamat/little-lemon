@@ -1,6 +1,7 @@
 package com.example.littlelemon
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -14,15 +15,11 @@ import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun Profile(navController: NavHostController){
-    Column(
-        Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = "Profile",
-            fontSize = 32.sp
-        )
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Text(text = "Profile")
     }
 }
 
