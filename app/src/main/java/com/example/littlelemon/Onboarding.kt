@@ -35,17 +35,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun Onboarding(navController: NavController) {
     val context = LocalContext.current
-    var firstName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
+    var firstName by rememberSaveable { mutableStateOf("") }
+    var lastName by rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -207,8 +209,9 @@ fun saveToSharedPreferences(
     }
 }
 
-//@Preview(showBackground = true)
-//@Composable
-//private fun OnboardingPreview() {
-//    Onboarding()
-//}
+@Preview(showBackground = true)
+@Composable
+private fun OnboardingPreview() {
+    val navController = rememberNavController()
+    Onboarding(navController)
+}
