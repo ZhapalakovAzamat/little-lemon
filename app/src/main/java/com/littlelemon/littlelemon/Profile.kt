@@ -1,10 +1,8 @@
 package com.littlelemon.littlelemon
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,10 +19,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,7 +26,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,12 +35,13 @@ import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Onboarding(navController: NavController) {
-    val context = LocalContext.current
-    var firstName by rememberSaveable { mutableStateOf("") }
-    var lastName by rememberSaveable { mutableStateOf("") }
-    var email by rememberSaveable { mutableStateOf("") }
 
+fun Profile(navController: NavController) {
+    val context = LocalContext.current
+    val sharedPreferences = context.getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+    val firstName = sharedPreferences.getString(FIRST_NAME, "") ?: ""
+    val lastName = sharedPreferences.getString(LAST_NAME, "") ?: ""
+    val email = sharedPreferences.getString(EMAIL, "") ?: ""
     Surface(
         modifier = Modifier
             .fillMaxWidth()
@@ -61,33 +54,17 @@ fun Onboarding(navController: NavController) {
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "Logo",
                 modifier = Modifier
-                    .height(80.dp)
                     .fillMaxWidth()
+                    .height(80.dp)
                     .padding(20.dp)
                     .align(Alignment.CenterHorizontally)
             )
             Box(
                 modifier = Modifier
-                    .background(Color(0xFF485E57))
-                    .padding(0.dp, 48.dp, 0.dp, 48.dp)
-                    .fillMaxWidth()
-            ) {
-                Text(
-                    text = "Let's get to know you",
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.Normal,
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                )
-            }
-            Box(
-                modifier = Modifier
                     .size(400.dp, 75.dp)
             ) {
                 Text(
-                    text = "Personal information",
+                    text = "Profile information:",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Start,
@@ -106,13 +83,10 @@ fun Onboarding(navController: NavController) {
                     .padding(top = 10.dp, start = 10.dp)
             )
             OutlinedTextField(
-                value = firstName,
-                onValueChange = {
-                    firstName = it
-                },
+                value = "$firstName",
+                onValueChange = {},
                 textStyle = TextStyle(fontSize = 25.sp),
                 shape = RoundedCornerShape(10.dp),
-                label = { Text("First name") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 10.dp, end = 10.dp)
@@ -127,13 +101,10 @@ fun Onboarding(navController: NavController) {
                     .padding(top = 10.dp, start = 10.dp)
             )
             OutlinedTextField(
-                value = lastName,
-                onValueChange = {
-                    lastName = it
-                },
+                value = "$lastName",
+                onValueChange = {},
                 textStyle = TextStyle(fontSize = 25.sp),
                 shape = RoundedCornerShape(10.dp),
-                label = { Text("Last name") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 10.dp, end = 10.dp)
@@ -148,73 +119,37 @@ fun Onboarding(navController: NavController) {
                     .padding(top = 10.dp, start = 10.dp)
             )
             OutlinedTextField(
-                value = email,
-                onValueChange = {
-                    email = it
-                },
+                value = "$email",
+                onValueChange = {},
                 textStyle = TextStyle(fontSize = 25.sp),
                 shape = RoundedCornerShape(10.dp),
-                label = { Text("Email") },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 10.dp, end = 10.dp)
             )
             Button(
                 onClick = {
-                    if (
-                        firstName.isBlank()
-                        && lastName.isBlank()
-                        && email.isBlank()
-                    ) {
-                        Toast.makeText(
-                            context, context.getString(R.string.unsuccessful), Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        saveToSharedPreferences(
-                            context, firstName, lastName, email
-                        )
-                        Toast.makeText(
-                            context, context.getString(R.string.successful),
-                            Toast.LENGTH_LONG
-                        ).show()
-                        navController.navigate(Destinations.Home.route)
+                    sharedPreferences.edit().clear().apply()
+                    navController.navigate(Destinations.Onboarding.route) {
+                        popUpTo(Destinations.Onboarding.route) { inclusive = true }
                     }
                 },
-                border = BorderStroke(1.dp, Color.Red),
+                border = BorderStroke(1.dp, Color(0xFFF47836)),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors
-                    (Color(0xFFDCAB3B)),
+                colors = ButtonDefaults.buttonColors(Color(0xFFDCAB3B)),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp)
             ) {
-                Text(
-                    text = "Register", color = Color.Black
-                )
+                Text(text = "Log out ")
             }
         }
     }
 }
 
-fun saveToSharedPreferences(
-    context: Context
-    , firstName: String
-    , lastName: String
-    , email: String
-){
-    val sharedP = context.getSharedPreferences("userData", Context.MODE_PRIVATE) ?: return
-    with(sharedP.edit()) {
-        putString("firstName", firstName)
-        putString("lastName", lastName)
-        putString("email", email)
-            .apply()
-    }
-}
-
-@Preview(showBackground = true)
+@Preview(showSystemUi = true)
 @Composable
-private fun OnboardingPreview() {
+fun ProfilePrev(){
     val navController = rememberNavController()
-    Onboarding(navController)
+    Profile(navController)
 }
