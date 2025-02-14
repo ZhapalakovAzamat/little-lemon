@@ -9,10 +9,17 @@ import androidx.navigation.compose.composable
 
 @Composable
 fun Navigation(navHostController: NavHostController, userData: Boolean) {
+    val context = LocalContext.current
+    val sharedPreferences = context.getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+    val firstName = sharedPreferences.getString(FIRST_NAME, "") ?: ""
+    val lastName = sharedPreferences.getString(LAST_NAME, "") ?: ""
+    val email = sharedPreferences.getString(EMAIL, "") ?: ""
     NavHost(
         navController = navHostController
         , startDestination =
-        if (userData) Destinations.Onboarding.route
+        if (firstName.isBlank()
+            && lastName.isBlank()
+            && email.isBlank()) Destinations.Onboarding.route
         else Destinations.Home.route
     ) {
         composable(Destinations.Home.route) {
