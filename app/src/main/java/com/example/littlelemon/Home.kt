@@ -49,7 +49,7 @@ fun Home(navController: NavController) {
                 )
             }
             Hero()
-
+            MenuItems()
         }
     }
 }
