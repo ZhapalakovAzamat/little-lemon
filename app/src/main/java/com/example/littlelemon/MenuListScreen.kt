@@ -26,6 +26,12 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun MenuListScreen() {
     Column {
+        Text(
+            text = "ORDER FOR DELIVERY!",
+            modifier = Modifier
+                .padding(10.dp)
+            , fontWeight = FontWeight.Bold
+        )
         LazyRow {
             items(Categories){ category ->
                 MenuCategory(category)
@@ -34,7 +40,7 @@ fun MenuListScreen() {
         }
         Divider(
             modifier = Modifier.padding(8.dp)
-            , color = Color.Gray
+            , color = Color.White
             , thickness = 1.dp
         )
         LazyColumn {

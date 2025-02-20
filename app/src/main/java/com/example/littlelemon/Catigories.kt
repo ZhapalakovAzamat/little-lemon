@@ -1,9 +1,11 @@
 package com.example.littlelemon
 
 val Categories = listOf<String>(
-    "Lunch"
-    , "Dessert"
-    , "A La Carte"
+    "Specials"
     , "Mains"
-    , "Specials"
+    , "Dessert"
+    , "Drinks"
+    , "Lunch"
+    , "A La Carte"
+
 )

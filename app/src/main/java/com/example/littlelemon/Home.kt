@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
+
 fun Home(navController: NavController) {
     Surface(
         modifier = Modifier
