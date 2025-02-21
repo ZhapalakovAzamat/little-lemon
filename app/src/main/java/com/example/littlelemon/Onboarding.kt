@@ -178,7 +178,7 @@ fun Onboarding(navController: NavController) {
                             context, context.getString(R.string.successful),
                             Toast.LENGTH_LONG
                         ).show()
-                        navController.navigate(Destinations.Home.route)
+                        navController.navigate(Home.route)
                     }
                 },
                 border = BorderStroke(1.dp, Color.Red),

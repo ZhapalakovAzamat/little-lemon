@@ -3,9 +3,11 @@ package com.example.littlelemon
 import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -45,20 +48,36 @@ fun Profile(navController: NavController) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top=15.dp)
+            .padding(top = 15.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.logo),
-                contentDescription = "Logo",
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(80.dp)
-                    .padding(20.dp)
-                    .align(Alignment.CenterHorizontally)
-            )
+                    .padding(8.dp)
+            ) {
+                Image(painter = painterResource(id = R.drawable.home),
+                    contentDescription = "Profile",
+                    modifier = Modifier
+                        .padding(end = 20.dp)
+                        .fillMaxWidth(0.20f)
+                        .clip(RoundedCornerShape(50.dp))
+                        .height(50.dp)
+
+                        .clickable { navController.navigate(Home.route) }
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier
+                        .height(50.dp)
+                        .fillMaxWidth(0.90f)
+
+                        .padding(start = 10.dp, end = 70.dp)
+                )
+            }
             Box(
                 modifier = Modifier
                     .size(400.dp, 75.dp)
@@ -130,8 +149,8 @@ fun Profile(navController: NavController) {
             Button(
                 onClick = {
                     sharedPreferences.edit().clear().apply()
-                    navController.navigate(Destinations.Onboarding.route) {
-                        popUpTo(Destinations.Onboarding.route) { inclusive = true }
+                    navController.navigate(Onboarding.route) {
+                        popUpTo(Onboarding.route) { inclusive = true }
                     }
                 },
                 border = BorderStroke(1.dp, Color(0xFFF47836)),

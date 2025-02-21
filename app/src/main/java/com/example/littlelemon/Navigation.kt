@@ -19,16 +19,16 @@ fun Navigation(navHostController: NavHostController, userData: Boolean) {
         , startDestination =
         if (firstName.isBlank()
             && lastName.isBlank()
-            && email.isBlank()) Destinations.Onboarding.route
-        else Destinations.Home.route
+            && email.isBlank()) Onboarding.route
+        else Home.route
     ) {
-        composable(Destinations.Home.route) {
+        composable(Home.route) {
             Home(navHostController)
         }
-        composable(Destinations.Profile.route) {
+        composable(Profile.route) {
             Profile(navHostController)
         }
-        composable(Destinations.Onboarding.route) {
+        composable(Onboarding.route) {
             Onboarding(navHostController)
         }
     }

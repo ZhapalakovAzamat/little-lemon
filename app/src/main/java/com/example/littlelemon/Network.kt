@@ -12,22 +12,22 @@ data class MenuNetwork(
 
 @Serializable
 data class MenuItemNetwork(
-//    @SerialName("id")
+    @SerialName("id")
     val id: Int,
 
-//    @SerialName("title")
+    @SerialName("title")
     val title: String,
 
-//    @SerialName("description")
+    @SerialName("description")
     val description: String,
 
-//    @SerialName("price")
+    @SerialName("price")
     val price: Double,
 
-//    @SerialName("category")
+    @SerialName("category")
     val category: String,
 
-//    @SerialName("image")
+    @SerialName("image")
     val imageUrl: String
 ){
     fun toMenuItemRoom() = MenuItemRoom(

@@ -46,7 +46,7 @@ fun Home(navController: NavController) {
 
                         .height(50.dp)
 
-                        .clickable { navController.navigate(Destinations.Profile.route) }
+                        .clickable { navController.navigate(Profile.route) }
                 )
             }
             Hero()

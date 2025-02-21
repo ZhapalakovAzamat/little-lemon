@@ -29,17 +29,16 @@ fun MenuListScreen() {
         Text(
             text = "ORDER FOR DELIVERY!",
             modifier = Modifier
-                .padding(10.dp)
+                .padding(5.dp)
             , fontWeight = FontWeight.Bold
         )
         LazyRow {
             items(Categories){ category ->
                 MenuCategory(category)
-
             }
         }
         Divider(
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(5.dp)
             , color = Color.White
             , thickness = 1.dp
         )
@@ -59,7 +58,9 @@ fun MenuCategory(category: String) {
         , shape = RoundedCornerShape(40)
         , modifier = Modifier.padding(5.dp)
     ){
-        Text(text = category)
+        Text(
+            text = category,
+            color = Color.Black)
     }
 }
 
@@ -83,7 +84,7 @@ fun MenuDish(Dish: Dish) {
                         .fillMaxWidth(.75f)
                 )
                 Text(text = Dish.price
-                    , color = Color.Gray
+                    , color = Color.Black
                     , fontWeight = FontWeight.Bold
                 )
             }
@@ -96,7 +97,7 @@ fun MenuDish(Dish: Dish) {
     Divider(
         modifier = Modifier
             .padding(start = 8.dp, end = 8.dp)
-        , color = Color.LightGray
+        , color = Color.White
         , thickness = 1.dp
     )
 }
